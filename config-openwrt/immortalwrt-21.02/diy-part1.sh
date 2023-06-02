@@ -11,4 +11,6 @@
 
 # other
 # rm -rf package/emortal/{autosamba,ipv6-helper}
+git clone https://github.com/kenzok8/luci-theme-ifit.git package/otherapp/luci-theme-ifit
+
 
