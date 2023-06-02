@@ -11,4 +11,6 @@
 
 # other
 # rm -rf package/lean/{samba4,luci-app-samba4,luci-app-ttyd}
-
+git clone https://github.com/kenzok8/luci-theme-ifit.git package/otherapp/luci-theme-ifit
+git clone https://github.com/xiaorouji/openwrt-passwall.git package/PWpackages
+git clone -b luci https://github.com/xiaorouji/openwrt-passwall.git package/passwall
