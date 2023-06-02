@@ -10,6 +10,11 @@ on:
   repository_dispatch:
   workflow_dispatch:
     inputs:
+      ssh:
+        description: 'SSH connection to Actions'
+        required: false
+        default: 'false'
+    
       openwrt_board:
         description: "Select device board"
         required: false
@@ -160,7 +165,7 @@ on:
 
 env:
   REPO_URL: https://github.com/immortalwrt/immortalwrt
-  REPO_BRANCH: openwrt-21.02
+  REPO_BRANCH: openwrt-23.05
   FEEDS_CONF: config-openwrt/immortalwrt-21.02/feeds.conf.default
   CONFIG_FILE: config-openwrt/immortalwrt-21.02/config
   DIY_P1_SH: config-openwrt/immortalwrt-21.02/diy-part1.sh
@@ -224,6 +229,13 @@ jobs:
           chmod +x ${DIY_P2_SH}
           cd openwrt/
           ${GITHUB_WORKSPACE}/${DIY_P2_SH}
+          
+      - name: SSH connection to Actions      
+        uses: P3TERX/ssh2actions@v1.0.0
+        if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+        env:
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}    
 
       - name: Download package
         id: package
